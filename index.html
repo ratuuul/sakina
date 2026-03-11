@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sakina — سكينة · Spiritual Companion</title>
+    <link rel="stylesheet" href="assets/landing.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Scheherazade+New:wght@400;700&family=Cinzel:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <!-- Scroll progress bar -->
+    <div id="pb"></div>
+
+    <!-- Background: geometric lattice + orbs + stars -->
+    <div class="geo"></div>
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <div
+      class="pstar"
+      style="width: 3px; height: 3px; top: 20%; left: 15%"
+    ></div>
+    <div
+      class="pstar"
+      style="width: 2px; height: 2px; top: 35%; left: 80%"
+    ></div>
+    <div
+      class="pstar"
+      style="width: 4px; height: 4px; top: 60%; left: 10%"
+    ></div>
+    <div
+      class="pstar"
+      style="width: 2px; height: 2px; top: 75%; left: 70%"
+    ></div>
+    <div
+      class="pstar"
+      style="width: 3px; height: 3px; top: 45%; left: 55%"
+    ></div>
+
+    <!-- ═══════════════════════════════
+     NAV
+════════════════════════════════ -->
+    <nav>
+      <a href="index.html" class="logo">
+        <div class="logo-stack">
+          <div class="logo-row">
+            <span class="len">Sakina</span>
+            <div class="ldiv"></div>
+            <span class="lar">سكينة</span>
+          </div>
+          <span class="lsub">Spiritual Companion</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#mood">Guidance</a></li>
+        <li><a href="#prayer">Prayer</a></li>
+        <li><a href="#personalize">Personalize</a></li>
+      </ul>
+
+      <div class="nav-r">
+        <button class="tgl" id="tglBtn" aria-label="Toggle theme">
+          <span class="ti-m">🌙</span>
+          <span class="ti-s">☀️</span>
+        </button>
+        <a href="app.html" class="nav-cta">Try Sakina</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- ═══════════════════════════════
+     HERO
+════════════════════════════════ -->
+      <section class="hero" id="home">
+        <div class="hbadge" id="hbadge">A New Kind of Spiritual Experience</div>
+        <p class="bismillah-h" id="hbism">
+          بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+        </p>
+        <h1 class="ht1" id="ht1">Find Your</h1>
+        <span class="ht-ar" id="htar">سكينة</span>
+        <p class="htag" id="htag">
+          A digital sanctuary for the Muslim soul — where the Quran breathes,
+          prayer times know your heart, and every moment carries meaning.
+        </p>
+        <div class="hctas" id="hctas">
+          <a href="app.html" class="cta-p"
+            >Try Sakina <span class="arr">→</span></a
+          >
+          <a href="#features" class="cta-s">Discover the experience</a>
+        </div>
+        <div class="scroll-h">
+          <div class="smouse"><div class="swheel"></div></div>
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     FEATURES
+     2-col grid: large (span 2) + [02,03] + [04,05] — no orphan
+════════════════════════════════ -->
+      <section class="feat-sec" id="features">
+        <div class="si">
+          <div class="feat-hd anim">
+            <div class="slabel">Core Experiences</div>
+            <h2 class="stitle">Everything your soul <em>needs</em></h2>
+            <p class="ssub">
+              Five carefully crafted pillars that transform your daily spiritual
+              practice into something truly beautiful.
+            </p>
+          </div>
+
+          <div class="feat-grid">
+            <!-- 01 · Quran Experience — full width -->
+            <div class="fc lg anim">
+              <div class="fc-text">
+                <div class="fc-icon"><span class="fc-icon-ar">ق</span></div>
+                <span class="fc-num">01</span>
+                <h3 class="fc-title">Quran Experience</h3>
+                <p class="fc-desc">
+                  A breathtaking reading environment with Scheherazade, Amiri,
+                  Noto, and Lateef Arabic fonts. Listen to Mishary Rashid
+                  Alafasy, switch between English and Bengali translations, and
+                  download any Surah as a beautifully typeset PDF.
+                </p>
+                <span class="fc-tag">Read · Listen · Reflect</span>
+              </div>
+              <div class="fc-vis">
+                <div class="qp">
+                  <div class="qp-ar">إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
+                  <p class="qp-en">"Indeed, with hardship comes ease."</p>
+                  <p class="qp-ref">Surah Ash-Sharh · 94:6</p>
+                  <div class="audio-row">
+                    <div class="audio-btn">
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="white"
+                      >
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg>
+                    </div>
+                    <div class="wf">
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                      <div class="wb"></div>
+                    </div>
+                  </div>
+                  <p class="reciter-n">
+                    Reciter: <span>Alafasy</span> · more coming soon
+                  </p>
+                </div>
+              </div>
+              <div class="fc-acc"></div>
+            </div>
+
+            <!-- 02 · Emotional Guidance -->
+            <div class="fc anim">
+              <div class="fc-icon">
+                <svg
+                  class="svg-i"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  style="stroke: var(--g)"
+                >
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                  />
+                </svg>
+              </div>
+              <span class="fc-num">02</span>
+              <h3 class="fc-title">Emotional Guidance</h3>
+              <p class="fc-desc">
+                Tell Sakina how you feel — grateful, anxious, heartbroken, or
+                joyful — and receive a curated Dua, Ayah, or reminder that
+                speaks directly to your heart's current state.
+              </p>
+              <span class="fc-tag">12 Emotional States</span>
+              <div class="fc-acc"></div>
+            </div>
+
+            <!-- 03 · Prayer & Sacred Time -->
+            <div class="fc anim">
+              <div class="fc-icon">
+                <svg
+                  class="svg-i"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  style="stroke: var(--g)"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              </div>
+              <span class="fc-num">03</span>
+              <h3 class="fc-title">Prayer &amp; Sacred Time</h3>
+              <p class="fc-desc">
+                Live GPS prayer times, real-time countdown to the next Athan,
+                Ramadan tracking with Suhoor &amp; Iftar, Tahajjud times, and a
+                dual Hijri/Gregorian clock — all in one elegant dashboard.
+              </p>
+              <span class="fc-tag">Live · Precise · Global</span>
+              <div class="fc-acc"></div>
+            </div>
+
+            <!-- 04 · Your Sanctuary -->
+            <div class="fc anim">
+              <div class="fc-icon">
+                <svg
+                  class="svg-i"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  style="stroke: var(--g)"
+                >
+                  <line x1="4" y1="21" x2="4" y2="14" />
+                  <line x1="4" y1="10" x2="4" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12" y2="3" />
+                  <line x1="20" y1="21" x2="20" y2="16" />
+                  <line x1="20" y1="12" x2="20" y2="3" />
+                  <line x1="1" y1="14" x2="7" y2="14" />
+                  <line x1="9" y1="8" x2="15" y2="8" />
+                  <line x1="17" y1="16" x2="23" y2="16" />
+                </svg>
+              </div>
+              <span class="fc-num">04</span>
+              <h3 class="fc-title">Your Sanctuary</h3>
+              <p class="fc-desc">
+                Choose your Arabic font, translation language, reciter voice,
+                and dark or light atmosphere. Sakina remembers your preferences
+                and shapes itself entirely around you.
+              </p>
+              <span class="fc-tag">Yours · Always</span>
+              <div class="fc-acc"></div>
+            </div>
+
+            <!-- 05 · Dhikr & Duas -->
+            <div class="fc anim">
+              <div class="fc-icon">
+                <span class="fc-icon-ar" style="font-size: 1.2rem">ذ</span>
+              </div>
+              <span class="fc-num">05</span>
+              <h3 class="fc-title">Dhikr &amp; Duas</h3>
+              <p class="fc-desc">
+                Morning &amp; evening Adhkar, daily Duas, and the 99 Names of
+                Allah — each with full Arabic, transliteration, and translation.
+                A living companion for every moment of your day.
+              </p>
+              <span class="fc-tag">Remember · Reflect · Recite</span>
+              <div class="fc-acc"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     EMOTIONAL GUIDANCE / MOOD
+════════════════════════════════ -->
+      <section class="mood-sec" id="mood">
+        <div class="si">
+          <div class="mood-wrap">
+            <div class="mood-text anim">
+              <div class="slabel">Emotional Guidance</div>
+              <h2 class="stitle">Your feelings, <em>heard</em></h2>
+              <p class="ssub">
+                Sakina listens. Select how you feel right now and receive a
+                beautiful, tailored spiritual response — a Dua, an Ayah, a
+                gentle reminder — that meets you exactly where you are.
+              </p>
+              <div style="margin-top: 2rem">
+                <div class="frow">
+                  <div class="frow-ic">
+                    <svg
+                      class="svg-i"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      style="stroke: var(--g)"
+                    >
+                      <path
+                        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="frow-t">12 Emotional States</p>
+                    <p class="frow-d">
+                      From gratitude to grief, every feeling acknowledged with
+                      compassion and wisdom.
+                    </p>
+                  </div>
+                </div>
+                <div class="frow">
+                  <div class="frow-ic">
+                    <svg
+                      class="svg-i"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      style="stroke: var(--g)"
+                    >
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="frow-t">Quranic &amp; Prophetic</p>
+                    <p class="frow-d">
+                      Every response drawn from the Quran, Hadith, and scholars
+                      across the ages.
+                    </p>
+                  </div>
+                </div>
+                <div class="frow">
+                  <div class="frow-ic">
+                    <svg
+                      class="svg-i"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      style="stroke: var(--g)"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="frow-t">Arabic · English · Bengali</p>
+                    <p class="frow-d">
+                      Receive guidance in your heart's own language — the
+                      language you think and pray in.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mood-btm">
+              <!-- Mood grid: 4×3 = 12 chips, all equal, no orphan -->
+              <div class="anim">
+                <div class="mgrid" id="mgrid">
+                  <div
+                    class="mchip active"
+                    data-r="Alhamdulillah. Gratitude multiplies every blessing. Your heart is a garden in full bloom."
+                    data-a="ٱلْحَمْدُ لِلَّهِ"
+                  >
+                    <div class="me">🌸</div>
+                    <div class="ml">Grateful</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Allah knows the weight you carry. With every hardship comes ease. Breathe and trust Him."
+                    data-a="حَسْبُنَا اللَّهُ"
+                  >
+                    <div class="me">💙</div>
+                    <div class="ml">Anxious</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="In sadness He is Al-Wadud, the Most Loving. You are never alone in your grief."
+                    data-a="إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ"
+                  >
+                    <div class="me">🌧</div>
+                    <div class="ml">Sad</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Subhanallah! Let this joy be a reminder of Jannah — a beautiful taste of what awaits."
+                    data-a="سُبْحَانَ اللَّهِ"
+                  >
+                    <div class="me">☀️</div>
+                    <div class="ml">Joyful</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Seek refuge in Him. Hasbunallahu wa ni'amal wakeel — He is enough, the Best Disposer."
+                    data-a="حَسْبِيَ اللَّهُ"
+                  >
+                    <div class="me">🌊</div>
+                    <div class="ml">Overwhelmed</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Forgiveness is His greatest gift. Turn to Him — He is Al-Ghafur, the Most Forgiving."
+                    data-a="أَسْتَغْفِرُ اللَّهَ"
+                  >
+                    <div class="me">🤲</div>
+                    <div class="ml">Regretful</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Trust in Allah's plan. What appears as loss is often the quiet opening of a greater door."
+                    data-a="تَوَكَّلْتُ عَلَى اللَّهِ"
+                  >
+                    <div class="me">🌱</div>
+                    <div class="ml">Lost</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Loneliness is the soul calling for its Creator. Return to Him — He is closer than you think."
+                    data-a="لَا إِلَهَ إِلَّا اللَّهُ"
+                  >
+                    <div class="me">🕊</div>
+                    <div class="ml">Lonely</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="This peace is a gift from Al-Salam. Say SubhanAllah — let the stillness deepen further."
+                    data-a="سُبْحَانَ اللَّهِ"
+                  >
+                    <div class="me">🍃</div>
+                    <div class="ml">Peaceful</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Hope is the believer's shield. Every new dawn is Allah granting you another beautiful chance."
+                    data-a="اللَّهُمَّ آمِين"
+                  >
+                    <div class="me">⭐</div>
+                    <div class="ml">Hopeful</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Allah tests those He loves most. Patience — Sabr — is your greatest superpower right now."
+                    data-a="إِنَّ مَعَ الْعُسْرِ يُسْرًا"
+                  >
+                    <div class="me">🔥</div>
+                    <div class="ml">Tested</div>
+                  </div>
+                  <div
+                    class="mchip"
+                    data-r="Bismillah. Begin with His name and watch the path illuminate clearly before every step."
+                    data-a="بِسْمِ اللَّهِ"
+                  >
+                    <div class="me">✨</div>
+                    <div class="ml">Ready</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Mood response -->
+              <div class="anim">
+                <div class="mresp" id="mr">
+                  <p class="mresp-t" id="mrt">
+                    Alhamdulillah. Gratitude multiplies every blessing. Your
+                    heart is a garden in full bloom.
+                  </p>
+                  <span class="mresp-ar" id="mra">ٱلْحَمْدُ لِلَّهِ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     PRAYER TIMES
+════════════════════════════════ -->
+      <section class="pray-sec" id="prayer">
+        <div class="si">
+          <div class="pray-lay">
+            <div class="anim">
+              <div class="slabel">Sacred Time</div>
+              <h2 class="stitle">Prayer times, <em>perfectly</em> yours</h2>
+              <p class="ssub">
+                Sakina uses your real GPS location to show all five daily
+                prayers with precision. Tap when you're ready.
+              </p>
+              <div class="pfl">
+                <div class="pfi">
+                  <p class="pfi-lbl">🌙 Ramadan</p>
+                  <p class="pfi-txt">
+                    Automatic Ramadan detection with Suhoor and Iftar times
+                    displayed beautifully.
+                  </p>
+                </div>
+                <div class="pfi">
+                  <p class="pfi-lbl">⭐ Tahajjud &amp; Extras</p>
+                  <p class="pfi-txt">
+                    Track the last third of the night, Ishraq, Duha, and all
+                    recommended times.
+                  </p>
+                </div>
+                <div class="pfi">
+                  <p class="pfi-lbl">🕰 Dual Calendar</p>
+                  <p class="pfi-txt">
+                    Live Hijri and Gregorian clock, always in sync with your
+                    local timezone.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="anim">
+              <div class="ptcard">
+                <div class="pthdr">
+                  <span class="ptloc" id="ptloc">
+                    <svg
+                      class="svg-i"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      style="stroke: var(--g); flex-shrink: 0"
+                    >
+                      <path
+                        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+                      />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    Location not set
+                  </span>
+                  <span class="pthijri" id="pthijri">—</span>
+                </div>
+                <button class="gloc" id="glocBtn">
+                  <svg
+                    class="svg-i"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    style="stroke: var(--g)"
+                  >
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                  Get prayer times for my location
+                </button>
+                <p class="pstatus" id="pstatus">
+                  Prayer times will appear here after allowing location access.
+                </p>
+                <div class="prows" id="prows">
+                  <div class="prow">
+                    <span class="p-ar">الفجر</span><span class="p-en">Fajr</span
+                    ><span class="p-t">—:—</span>
+                  </div>
+                  <div class="prow">
+                    <span class="p-ar">الشروق</span
+                    ><span class="p-en">Sunrise</span
+                    ><span class="p-t">—:—</span>
+                  </div>
+                  <div class="prow">
+                    <span class="p-ar">الظهر</span
+                    ><span class="p-en">Dhuhr</span><span class="p-t">—:—</span>
+                  </div>
+                  <div class="prow">
+                    <span class="p-ar">العصر</span><span class="p-en">Asr</span
+                    ><span class="p-t">—:—</span>
+                  </div>
+                  <div class="prow">
+                    <span class="p-ar">المغرب</span
+                    ><span class="p-en">Maghrib</span
+                    ><span class="p-t">—:—</span>
+                  </div>
+                  <div class="prow">
+                    <span class="p-ar">العشاء</span
+                    ><span class="p-en">Isha</span><span class="p-t">—:—</span>
+                  </div>
+                </div>
+                <div class="cdrow">
+                  <div class="cdu">
+                    <div class="cdn" id="cdh">--</div>
+                    <div class="cdl">hrs</div>
+                  </div>
+                  <div class="cdsep">:</div>
+                  <div class="cdu">
+                    <div class="cdn" id="cdm">--</div>
+                    <div class="cdl">min</div>
+                  </div>
+                  <div class="cdsep">:</div>
+                  <div class="cdu">
+                    <div class="cdn" id="cds">--</div>
+                    <div class="cdl">sec</div>
+                  </div>
+                </div>
+                <p class="cdlabel" id="cdnext">Awaiting location</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     VERSE INTERLUDE
+════════════════════════════════ -->
+      <section class="verse-sec">
+        <div class="vdiv"></div>
+        <p class="var anim">أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ</p>
+        <p class="vtr anim">
+          "Verily, in the remembrance of Allah do hearts find tranquility."
+        </p>
+        <p class="vref anim">Surah Ar-Ra'd · 13:28</p>
+        <div class="vdiv"></div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     PERSONALIZATION
+════════════════════════════════ -->
+      <section class="pers-sec" id="personalize">
+        <div class="si">
+          <div class="pers-lay">
+            <!-- Settings preview window -->
+            <div class="anim">
+              <div class="sprv">
+                <div class="sprhdr">
+                  <div class="sdots">
+                    <div class="dot r"></div>
+                    <div class="dot y"></div>
+                    <div class="dot g2"></div>
+                  </div>
+                  <span class="sptl">Sakina — Your Preferences</span>
+                </div>
+                <div class="sprows">
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <polyline points="4 7 4 4 20 4 20 7" />
+                        <line x1="9" y1="20" x2="15" y2="20" />
+                        <line x1="12" y1="4" x2="12" y2="20" />
+                      </svg>
+                      Arabic Font
+                    </span>
+                    <span class="sval">Scheherazade New</span>
+                  </div>
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="2" y1="12" x2="22" y2="12" />
+                        <path
+                          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                        />
+                      </svg>
+                      Translation
+                    </span>
+                    <span class="sval">English + বাংলা</span>
+                  </div>
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <path
+                          d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"
+                        />
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                        <line x1="12" y1="19" x2="12" y2="23" />
+                        <line x1="8" y1="23" x2="16" y2="23" />
+                      </svg>
+                      Reciter
+                    </span>
+                    <span class="sval">Alafasy · more soon</span>
+                  </div>
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <path
+                          d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                        />
+                      </svg>
+                      Theme
+                    </span>
+                    <div class="tviz"></div>
+                  </div>
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                      </svg>
+                      Time Format
+                    </span>
+                    <span class="sval">12h · Hijri + Greg</span>
+                  </div>
+                  <div class="srow">
+                    <span class="slbl">
+                      <svg
+                        class="svg-i"
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        style="stroke: var(--g)"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      Your Name
+                    </span>
+                    <span
+                      class="sval"
+                      style="
+                        font-family: &quot;Scheherazade New&quot;, serif;
+                        font-size: 1.05rem;
+                        color: var(--g2);
+                      "
+                      >أخي / أختي</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Text content -->
+            <div class="anim">
+              <div class="slabel">Personalization</div>
+              <h2 class="stitle">A space <em>shaped by you</em></h2>
+              <p class="ssub">
+                Sakina is not an app you use — it is a sanctuary you inhabit.
+                Every detail adjusts to your soul's unique rhythm.
+              </p>
+              <div class="pgrid">
+                <div class="pgi">
+                  <div class="pgem">🖋</div>
+                  <p class="pgt">4 Arabic Fonts</p>
+                  <p class="pgs">Scheherazade · Amiri · Noto · Lateef</p>
+                </div>
+                <div class="pgi">
+                  <div class="pgem">🎙</div>
+                  <p class="pgt">Reciter</p>
+                  <p class="pgs">Alafasy · more coming soon</p>
+                </div>
+                <div class="pgi">
+                  <div class="pgem">🌙</div>
+                  <p class="pgt">Dark &amp; Light</p>
+                  <p class="pgs">Two distinct atmospheres</p>
+                </div>
+                <div class="pgi">
+                  <div class="pgem">🌐</div>
+                  <p class="pgt">3 Languages</p>
+                  <p class="pgs">Arabic · English · Bengali</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════
+     FINAL CTA
+════════════════════════════════ -->
+      <section class="fcta">
+        <div class="fcta-in">
+          <h2 class="fcta-t anim">
+            Begin your journey<br />toward <em>tranquility</em>
+          </h2>
+          <p class="fcta-s anim">
+            No downloads. No accounts. Just open Sakina and feel the difference.
+          </p>
+          <div
+            class="anim"
+            style="
+              display: flex;
+              align-items: center;
+              gap: 1.5rem;
+              justify-content: center;
+              flex-wrap: wrap;
+            "
+          >
+            <a href="app.html" class="cta-p"
+              >Try Sakina Now <span class="arr">→</span></a
+            >
+            <p class="fcta-n">Free · No login required</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ═══════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+    <footer>
+      <div class="fin">
+        <div class="fbrand">
+          <div class="flogo">
+            <span class="len">Sakina</span>
+            <div class="ldiv"></div>
+            <span class="lar">سكينة</span>
+          </div>
+          <p class="ftag2">A sanctuary for the Muslim soul</p>
+        </div>
+        <div class="fcent">
+          <p class="fcred">
+            Made with <span class="fhrt">❤️</span> for the
+            <strong>Ummah</strong> by <strong>Ratul</strong>
+          </p>
+        </div>
+        <div class="frgt">
+          <a
+            href="https://github.com/"
+            class="slink"
+            target="_blank"
+            rel="noopener"
+            aria-label="GitHub"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://facebook.com/"
+            class="slink"
+            target="_blank"
+            rel="noopener"
+            aria-label="Facebook"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+          </a>
+          <a href="#" class="slink" aria-label="Email" id="emailLink">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+              />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="fdiv"></div>
+      <div class="fbot">
+        <p class="fcopy">
+          © 2025 Sakina · Spiritual Companion · All rights reserved
+        </p>
+        <div class="flinks">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="app.html">Launch App</a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/landing.js"></script>
+  </body>
+</html>
