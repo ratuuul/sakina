@@ -931,8 +931,8 @@ header {
   color:var(--gold);
 }
 .qr-verse-arabic {
-  font-size:clamp(1.5rem,4.2vw,2.05rem);
-  line-height:2.15; direction:rtl; text-align:right;
+  font-size:clamp(1.65rem,4.5vw,2.2rem);
+  line-height:2.3; direction:rtl; text-align:right;
   color: var(--t1); margin-bottom:.9rem;
   /* font family set via data-qraf attribute on #quran-reader */
 }
@@ -1043,23 +1043,12 @@ header {
 .qr-main-row {
   display:flex; align-items:center; gap:.5rem;
 }
-/* Waveform — takes remaining space */
+/* Waveform canvas — takes remaining space */
 .qr-waveform {
-  flex:1; display:flex; align-items:flex-end; gap:1.5px;
-  height:32px; overflow:hidden; border-radius:6px;
-  background: var(--bg3); padding: 4px 6px;
-  min-width:0;
+  flex:1; height:36px; border-radius:6px;
+  background: var(--bg3); min-width:0; cursor:pointer;
+  display:block; /* canvas is inline by default */
 }
-.qr-wv-bar {
-  flex:1; border-radius:2px 2px 0 0;
-  background: var(--border2);
-  transition: background .25s;
-  transform-origin: bottom;
-}
-.qr-wv-bar.played  { background: rgba(46,175,128,.5); }
-.qr-wv-bar.current { background: var(--gold2); }
-.qr-waveform.playing .qr-wv-bar.current { animation: wv-bounce .55s ease-in-out infinite alternate; }
-@keyframes wv-bounce { from{transform:scaleY(.65)} to{transform:scaleY(1.3)} }
 /* Transport controls — compact */
 .qr-transport {
   display:flex; align-items:center; gap:.3rem; flex-shrink:0;
@@ -1289,6 +1278,192 @@ header {
 .sf-note { font-size:.6rem; color:var(--t3); letter-spacing:.04em; }
 .sf-copy { font-size:.55rem; color:var(--t3); letter-spacing:.08em; text-transform:uppercase; }
 @media(max-width:480px){ .sf-mid { display:none; } }
+
+/* ══════════════════════════════════════════
+   TAJWEED COLOR SYSTEM
+   ══════════════════════════════════════════ */
+.tj-qalqalah { color:#c62828; font-weight:500; cursor:pointer; }
+.tj-ghunnah  { color:#E65100; cursor:pointer; }
+.tj-madd     { color:#1565C0; cursor:pointer; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:3px; }
+.tj-ikhfa    { color:#00695C; cursor:pointer; }
+.tj-idgham   { color:#2E7D32; cursor:pointer; }
+.tj-iqlab    { color:#6A1B9A; cursor:pointer; }
+[data-theme=dark] .tj-qalqalah { color:#EF9A9A; }
+[data-theme=dark] .tj-ghunnah  { color:#FFCC80; }
+[data-theme=dark] .tj-madd     { color:#90CAF9; text-decoration-color:#90CAF9; }
+[data-theme=dark] .tj-ikhfa    { color:#80DEEA; }
+[data-theme=dark] .tj-idgham   { color:#A5D6A7; }
+[data-theme=dark] .tj-iqlab    { color:#CE93D8; }
+/* Tajweed toggle button */
+.qr-tj-btn {
+  font-family:'Lora',serif; font-size:.72rem; font-style:italic;
+  padding:.35rem .75rem; border-radius:var(--radiuss);
+  border:1.5px solid var(--border); background:var(--card); color:var(--t2);
+  cursor:pointer; transition:all .2s; white-space:nowrap;
+  display:flex; align-items:center; gap:.28rem;
+}
+.qr-tj-btn:hover { border-color:var(--gold); color:var(--gold); background:var(--gold3); }
+.qr-tj-btn.on    { border-color:var(--green2); background:rgba(46,175,128,.09); color:var(--green2); }
+/* Tajweed legend strip */
+#tj-legend {
+  display:none; flex-wrap:wrap; gap:.35rem .75rem; align-items:center;
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:var(--radiuss); padding:.5rem .9rem; margin-bottom:.9rem;
+}
+#tj-legend.show { display:flex; }
+.tj-legend-title { width:100%; font-size:.53rem; letter-spacing:.1em; text-transform:uppercase; color:var(--t3); margin-bottom:.05rem; font-weight:600; }
+.tj-legend-item  { display:flex; align-items:center; gap:.28rem; font-size:.63rem; }
+.tj-legend-dot   { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+.tj-legend-en    { font-weight:500; }
+.tj-legend-ar    { font-family:'Scheherazade New',serif; font-size:.78rem; color:var(--t3); }
+/* Tajweed floating tooltip */
+#tj-tooltip {
+  position:fixed; z-index:9999; pointer-events:none;
+  background:var(--card); border:1px solid var(--border2);
+  border-radius:10px; padding:.55rem .9rem;
+  box-shadow:0 8px 32px rgba(0,0,0,.22);
+  opacity:0; transition:opacity .12s; max-width:240px; font-family:'Lora',serif;
+}
+#tj-tooltip.show { opacity:1; }
+/* ── Waqf (Stopping Signs) ── */
+.tj-waqf {
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:'Scheherazade New',serif; font-size:.78rem;
+  border-radius:50%; width:18px; height:18px;
+  margin:0 2px; cursor:pointer; position:relative; top:-1px;
+  transition:transform .15s, box-shadow .15s;
+  font-weight:700; line-height:1;
+}
+.tj-waqf:hover { transform:scale(1.25); }
+.tj-waqf-laazim   { background:rgba(198,40,40,.15);  color:#c62828; border:1.5px solid rgba(198,40,40,.4); }
+.tj-waqf-mamnu    { background:rgba(30,30,30,.1);    color:var(--t2); border:1.5px solid var(--border2); text-decoration:line-through; text-decoration-color:#c62828; }
+.tj-waqf-mutlaq   { background:rgba(21,101,192,.12); color:#1565C0; border:1.5px solid rgba(21,101,192,.35); }
+.tj-waqf-jaiz     { background:rgba(46,125,50,.12);  color:#2E7D32; border:1.5px solid rgba(46,125,50,.35); }
+.tj-waqf-mujawwaz { background:rgba(230,81,0,.1);   color:#E65100; border:1.5px solid rgba(230,81,0,.3); }
+.tj-waqf-muraqqas { background:rgba(106,27,154,.1);  color:#6A1B9A; border:1.5px solid rgba(106,27,154,.3); }
+.tj-waqf-breath   { background:rgba(0,105,92,.1);    color:#00695C; border:1.5px solid rgba(0,105,92,.3); }
+[data-theme=dark] .tj-waqf-laazim   { background:rgba(239,154,154,.15); color:#EF9A9A; }
+[data-theme=dark] .tj-waqf-mutlaq   { background:rgba(144,202,249,.12); color:#90CAF9; }
+[data-theme=dark] .tj-waqf-jaiz     { background:rgba(165,214,167,.12); color:#A5D6A7; }
+[data-theme=dark] .tj-waqf-mujawwaz { background:rgba(255,204,128,.12); color:#FFCC80; }
+[data-theme=dark] .tj-waqf-muraqqas { background:rgba(206,147,216,.12); color:#CE93D8; }
+[data-theme=dark] .tj-waqf-breath   { background:rgba(128,222,234,.12); color:#80DEEA; }
+
+/* ══ Tajweed Dashboard Overlay ══ */
+#tj-dashboard {
+  display:none; position:fixed; inset:0; z-index:200;
+  background: rgba(0,0,0,.55); backdrop-filter:blur(6px);
+  align-items:flex-start; justify-content:center;
+  padding:2.5vh 1rem; overflow-y:auto;
+}
+#tj-dashboard.open { display:flex; }
+.tj-dash-card {
+  background: var(--card); border-radius:18px; max-width:860px; width:100%;
+  border:1px solid var(--border2);
+  box-shadow:0 32px 96px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.15);
+  overflow:hidden; animation: dashIn .22s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes dashIn { from{opacity:0;transform:translateY(-28px) scale(.97)} to{opacity:1;transform:none} }
+.tj-dash-hd {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem 1.5rem .9rem;
+  background:linear-gradient(135deg,var(--bg2),var(--card));
+  border-bottom:1px solid var(--border);
+}
+.tj-dash-title {
+  font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700;
+  color:var(--t1); display:flex; align-items:center; gap:.5rem;
+}
+.tj-dash-subtitle { font-size:.58rem; color:var(--t3); letter-spacing:.1em; text-transform:uppercase; margin-top:.12rem; }
+.tj-dash-close {
+  width:32px; height:32px; border-radius:50%; border:1.5px solid var(--border2);
+  background:var(--bg2); color:var(--t2); cursor:pointer;
+  display:flex; align-items:center; justify-content:center; font-size:.9rem;
+  transition:all .2s;
+}
+.tj-dash-close:hover { border-color:var(--gold); color:var(--gold); background:var(--gold3); }
+/* Tab row */
+.tj-dash-tabs {
+  display:flex; overflow-x:auto; border-bottom:1px solid var(--border);
+  background:var(--bg2); scrollbar-width:none; gap:0;
+}
+.tj-dash-tabs::-webkit-scrollbar { display:none; }
+.tj-dash-tab {
+  padding:.55rem 1rem; font-size:.64rem; font-weight:600; letter-spacing:.06em;
+  text-transform:uppercase; white-space:nowrap; cursor:pointer;
+  border-bottom:2.5px solid transparent; color:var(--t3); transition:all .18s;
+  display:flex; align-items:center; gap:.38rem;
+}
+.tj-dash-tab:hover { color:var(--t1); }
+.tj-dash-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+.tj-dash-tab .tab-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+/* Content panels */
+.tj-dash-body { padding:1.2rem 1.5rem 1.6rem; }
+.tj-dash-panel { display:none; }
+.tj-dash-panel.active { display:block; }
+/* Rule card inside dashboard */
+.tj-rule-hd {
+  display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.1rem;
+}
+.tj-rule-badge {
+  flex-shrink:0; width:52px; height:52px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Scheherazade New',serif; font-size:1.5rem;
+}
+.tj-rule-meta h2 {
+  font-family:'Playfair Display',serif; font-size:1rem; font-weight:700;
+  color:var(--t1); margin:0 0 .15rem;
+}
+.tj-rule-meta .tj-rule-ar {
+  font-family:'Scheherazade New',serif; font-size:1.1rem; direction:rtl; margin-bottom:.25rem;
+}
+.tj-rule-meta p { font-size:.72rem; color:var(--t2); line-height:1.7; margin:0; }
+/* Letter grid */
+.tj-letter-grid {
+  display:flex; flex-wrap:wrap; gap:.35rem; margin:.7rem 0;
+}
+.tj-letter-chip {
+  font-family:'Scheherazade New',serif; font-size:1.15rem;
+  padding:.25rem .6rem; border-radius:8px; border:1.5px solid;
+  cursor:default; line-height:1.3;
+}
+/* Condition rows */
+.tj-conditions { margin:.8rem 0; display:flex; flex-direction:column; gap:.45rem; }
+.tj-cond-row {
+  display:flex; align-items:flex-start; gap:.6rem;
+  padding:.55rem .8rem; border-radius:8px;
+  background:var(--bg2); border:1px solid var(--border);
+}
+.tj-cond-label {
+  font-size:.58rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  white-space:nowrap; margin-top:.1rem; flex-shrink:0; min-width:70px;
+}
+.tj-cond-text { font-size:.7rem; color:var(--t2); line-height:1.65; }
+/* Waqf table */
+.tj-waqf-table { width:100%; border-collapse:collapse; margin:.4rem 0; }
+.tj-waqf-table th {
+  font-size:.55rem; letter-spacing:.1em; text-transform:uppercase; color:var(--t3);
+  padding:.45rem .75rem; border-bottom:2px solid var(--border); text-align:left;
+  font-weight:700; background:var(--bg2);
+}
+.tj-waqf-table td {
+  padding:.6rem .75rem; border-bottom:1px solid var(--border);
+  font-size:.72rem; color:var(--t2); vertical-align:top; line-height:1.6;
+}
+.tj-waqf-table tr:hover td { background:var(--bg2); }
+.tj-waqf-sym {
+  font-family:'Scheherazade New',serif; font-size:1.1rem;
+  font-weight:700; display:block; margin-bottom:.1rem;
+}
+.tj-waqf-name { font-weight:600; color:var(--t1); }
+/* Mobile */
+@media(max-width:600px){
+  .tj-dash-card { border-radius:14px; }
+  .tj-dash-hd   { padding:.85rem 1rem .75rem; }
+  .tj-dash-body { padding:.9rem 1rem 1.2rem; }
+  .tj-dash-tab  { padding:.5rem .75rem; font-size:.58rem; }
+  .tj-rule-hd   { flex-direction:column; gap:.6rem; }
+}
 </style>
 </head>
 <body>
@@ -1548,6 +1723,8 @@ header {
     </div>
     <div class="qr-ctrl-sep"></div>
     <button class="qr-pdf-btn" id="qr-pdf-btn" onclick="downloadPDF()" disabled>⬇ PDF</button>
+    <div class="qr-ctrl-sep"></div>
+    <button class="qr-tj-btn on" id="tj-toggle-btn" onclick="TJ.toggle()" title="Toggle Tajweed colours">🎨 Tajweed</button>
   </div>
 
   <!-- ③ Body: jump bar + surah content -->
@@ -1558,6 +1735,8 @@ header {
       <button class="qr-jump-btn" onclick="jumpToSurah()">Go</button>
       <span class="qr-verse-count" id="qr-verse-count"></span>
     </div>
+    <!-- Tajweed colour legend — shown when Tajweed is ON -->
+    <div id="tj-legend"></div>
     <div id="qr-content"></div>
   </div>
 
@@ -1590,7 +1769,7 @@ header {
 
       <!-- Row 3: [waveform·····] [⏮ ▶ ⏭] [🔁 📖] all inline -->
       <div class="qr-main-row">
-        <div class="qr-waveform" id="qr-waveform"></div>
+        <canvas class="qr-waveform" id="qr-waveform" onclick="seekFromWaveform(event)"></canvas>
         <div class="qr-transport">
           <button class="qr-t-btn" id="qr-prev-btn" onclick="ayahPrev()" title="Previous ayah">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
@@ -1618,9 +1797,29 @@ header {
 
   <!-- Hidden HTML5 audio element -->
   <audio id="qr-audio" preload="auto"></audio>
+  <!-- Tajweed tooltip -->
+  <div id="tj-tooltip">
+    <div class="tj-tip-ar"  id="tj-tip-ar"></div>
+    <div class="tj-tip-rule" id="tj-tip-rule"></div>
+    <div class="tj-tip-desc" id="tj-tip-desc"></div>
+  </div>
   <!-- Off-screen PDF render div (kept but unused now) -->
   <div id="qr-pdf-render" aria-hidden="true" style="position:fixed;left:-9999px;top:0;opacity:0;pointer-events:none;"></div>
 
+  <!-- ⑤ Tajweed Dashboard Overlay -->
+  <div id="tj-dashboard" onclick="if(event.target===this)TJ.closeDash()">
+    <div class="tj-dash-card">
+      <div class="tj-dash-hd">
+        <div>
+          <div class="tj-dash-title">🎨 Tajweed Rule Book</div>
+          <div class="tj-dash-subtitle">Quran Recitation — Colour-Coded Pronunciation Guide</div>
+        </div>
+        <button class="tj-dash-close" onclick="TJ.closeDash()">✕</button>
+      </div>
+      <div class="tj-dash-tabs" id="tj-dash-tabs"></div>
+      <div class="tj-dash-body" id="tj-dash-body"></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1896,6 +2095,12 @@ async function init(){
   startMasterTimer();
   const sfY = document.getElementById('sf-year');
   if(sfY) sfY.textContent = new Date().getFullYear();
+  // Redraw waveform canvas on resize (handles orientation change, window resize)
+  let _resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(() => { if(_wvHeights) updateWaveform(); }, 120);
+  });
 }
 
 // ╔══════════════════════════════════════════════════════════════╗
@@ -3064,39 +3269,585 @@ const QRP = {
                       // used to discard stale deferred callbacks
 };
 
+// ══════════════════════════════════════════════════════════════════
+//  TAJWEED ENGINE — rule-based, pure JS, no external API or dataset
+//  Rules: Qalqalah · Ghunnah · Madd · Ikhfa · Idgham · Iqlab · Waqf
+// ══════════════════════════════════════════════════════════════════
+const TJ = (() => {
+  // ── Unicode constants ──
+  const SUKOON   = '\u0652';
+  const SHADDAH  = '\u0651';
+  const TANWIN_F = '\u064B';
+  const TANWIN_D = '\u064C';
+  const TANWIN_K = '\u064D';
+  const FATHA    = '\u064E';
+  const DAMMA    = '\u064F';
+  const KASRA    = '\u0650';
+  const SMALL_ALEF = '\u0670';
+  const MADDAH   = '\u0653';
+  const ALEF = 'ا', WAW = 'و', YA = 'ي', NOON = 'ن', MEEM = 'م';
+
+  // Waqf Unicode marks (U+06D6 – U+06DC, U+06DF–U+06E1)
+  const WAQF_MAP = {
+    '\u06D6': 'muraqqas',  // ۖ continue preferred (صلى)
+    '\u06D7': 'mutlaq',    // ۗ stop better (ق)
+    '\u06D8': 'mujawwaz',  // ۘ permissible / continue OK
+    '\u06D9': 'mujawwaz',  // ۙ
+    '\u06DA': 'jaiz',      // ۚ permissible stop (ج)
+    '\u06DB': 'laazim',    // ۛ mandatory stop (م)
+    '\u06DC': 'breath',    // ۜ take breath, continue
+    '\u06DF': 'breath',    // ۟ small zero above — brief pause
+    '\u06E0': 'mujawwaz',  // ۠ upright zero
+    '\u06E1': 'breath',    // ۡ small dotless
+  };
+  const WAQF_CHARS = new Set(Object.keys(WAQF_MAP));
+
+  // ── Letter sets ──
+  const QALQALAH = new Set(['ق','ط','ب','ج','د']);
+  const IKHFA_L  = new Set(['ت','ث','ج','د','ذ','ز','س','ش','ص','ض','ط','ظ','ف','ق','ك']);
+  const IDGHAM_L = new Set(['ي','ن','م','و','ل','ر']);
+
+  // ── Rule metadata ──
+  const RULES = {
+    qalqalah: {
+      en:'Qalqalah', ar:'قلقلة', color:'#c62828',
+      desc:'An echo/bounce vibration when ق ط ب ج د carry a sukoon.',
+      letters:['ق','ط','ب','ج','د'],
+      letterDesc:'These 5 letters produce a bouncing sound when they have sukoon (ْ) — especially at end of ayah.',
+      conditions:[
+        { label:'When',  text:'The letter carries a sukoon ْ or is at end of verse (waqf sukoon).' },
+        { label:'Types', text:'Minor (light bounce — mid-word), Major (strong bounce — end of verse).' },
+        { label:'Memory',text:'Mnemonic: قُطُبُ جَدّ — "The axis of a grandfather"' },
+      ],
+    },
+    ghunnah: {
+      en:'Ghunnah', ar:'غنة', color:'#E65100',
+      desc:'A nasal humming resonance through the nose, 2 counts long.',
+      letters:['ن','م'],
+      letterDesc:'ن (noon) and م (meem) with shaddah always produce ghunnah. Also occurs with noon sakinah/tanwin in some contexts.',
+      conditions:[
+        { label:'Always',  text:'ن or م with shaddah ّ — nasal sound held 2 counts.' },
+        { label:'Also on', text:'Idgham with ghunnah (noon → ي ن م و), Ikhfa (noon before 15 letters).' },
+        { label:'Duration',text:'Hold the nasal sound for exactly 2 counts (harakaat).' },
+      ],
+    },
+    madd: {
+      en:'Madd', ar:'مد', color:'#1565C0',
+      desc:'Elongation of a vowel. Duration varies from 2 to 6 counts depending on type.',
+      letters:['ا','و','ي'],
+      letterDesc:'These are the three Huroof Madd (letters of elongation): ا follows fatha, و follows damma, ي follows kasra.',
+      conditions:[
+        { label:'Natural (2)', text:'Vowel + its matching harf madd with no hamzah/sukoon following.' },
+        { label:'Wajib (4-5)', text:'Harf madd immediately followed by hamzah in same word.' },
+        { label:'Jaiz (2-4)', text:'Harf madd followed by hamzah in next word.' },
+        { label:'Laazim (6)', text:'Harf madd followed by sukoon — mandatory 6 counts.' },
+        { label:'Symbol',    text:'Marked by superscript alef ٰ or maddah sign ٓ' },
+      ],
+    },
+    ikhfa: {
+      en:'Ikhfa', ar:'إخفاء', color:'#00695C',
+      desc:'Concealment — the noon/tanwin sound is hidden before 15 letters with a nasal tone.',
+      letters:['ت','ث','ج','د','ذ','ز','س','ش','ص','ض','ط','ظ','ف','ق','ك'],
+      letterDesc:'Noon sakinah or tanwin before these 15 letters: the noon sound is neither fully pronounced nor fully merged.',
+      conditions:[
+        { label:'Trigger', text:'Noon sakinah ن ْ or tanwin ً ٌ ٍ followed by any of the 15 ikhfa letters.' },
+        { label:'Sound',   text:'A nasal sound (ghunnah) is held for 2 counts while the mouth moves toward the next letter.' },
+        { label:'Contrast',text:'Different from Ikhfa Shafawi: م ْ before ب → lips almost closed, nasal tone.' },
+      ],
+    },
+    idgham: {
+      en:'Idgham', ar:'إدغام', color:'#2E7D32',
+      desc:'Merging — noon/tanwin fully blends into the following letter.',
+      letters:['ي','ن','م','و','ل','ر'],
+      letterDesc:'Two types: With Ghunnah (ي ن م و) — nasal tone while merging. Without Ghunnah (ل ر) — clean merge, no nasal.',
+      conditions:[
+        { label:'With Ghunnah', text:'ن ْ / tanwin + ي ن م و — merge with nasal tone (2 counts).' },
+        { label:'Without',      text:'ن ْ / tanwin + ل ر — clean merge, NO nasal sound.' },
+        { label:'Exception',    text:'No idgham if noon + ي ن م و are in the same word (e.g. بُنيَان).' },
+      ],
+    },
+    iqlab: {
+      en:'Iqlab', ar:'إقلاب', color:'#6A1B9A',
+      desc:'Conversion — noon sakinah or tanwin becomes a nasal meem before ب.',
+      letters:['ب'],
+      letterDesc:'Only one letter triggers iqlab: ب (ba). The noon sound is converted into a hidden meem with ghunnah.',
+      conditions:[
+        { label:'Trigger', text:'Noon sakinah ن ْ or tanwin before ب' },
+        { label:'Method',  text:'Lips come together (as for م), nasal tone for 2 counts, then open for ب.' },
+        { label:'Symbol',  text:'Written in some Mushafs as a small م above the noon.' },
+      ],
+    },
+  };
+
+  // ── Waqf rule metadata ──
+  const WAQF_RULES = {
+    laazim:   { sym:'م',   sym2:'ۛ', en:'Waqf Laazim',   ar:'وقف لازم',   color:'#c62828', must:true,
+      desc:'Mandatory stop. Meaning is distorted or misleading if you continue. Must stop here.',
+      example:'Stopping is obligatory — the meaning of the verse depends on it.' },
+    mamnu:    { sym:'لا',  sym2:'',  en:'Waqf Mamnu',    ar:'وقف ممنوع',  color:'#666',    must:false,
+      desc:'Forbidden stop. The meaning is incomplete or corrupted — you must continue.',
+      example:'Do not stop — the sentence is not complete yet.' },
+    mutlaq:   { sym:'ط',   sym2:'ۗ', en:'Waqf Mutlaq',   ar:'وقف مطلق',   color:'#1565C0', must:false,
+      desc:'Absolute stop preferred. Sentence is complete. Stopping here is the best option.',
+      example:'Stopping is better; the meaning is complete.' },
+    jaiz:     { sym:'ج',   sym2:'ۚ', en:'Waqf Jaiz',     ar:'وقف جائز',   color:'#2E7D32', must:false,
+      desc:'Permissible stop. The sentence is complete. You may stop or continue — both are fine.',
+      example:'Both stopping and continuing are acceptable.' },
+    mujawwaz: { sym:'ز',   sym2:'ۘ', en:'Waqf Mujawwaz', ar:'وقف مجوّز',  color:'#E65100', must:false,
+      desc:'Stop is permissible but continuing is better. The meaning is complete but the next portion is related.',
+      example:'Continuing is preferred but pausing is allowed.' },
+    muraqqas: { sym:'ص',   sym2:'ۖ', en:'Waqf Muraqqas', ar:'وقف مرخّص',  color:'#6A1B9A', must:false,
+      desc:'Stopping here is not ideal — continue is better. A permissible stop only if out of breath.',
+      example:'Continue is preferred; stop only if necessary to take a breath.' },
+    breath:   { sym:'∽',   sym2:'ۜ', en:'Breath Mark',   ar:'وقف التنفس', color:'#00695C', must:false,
+      desc:'Brief natural pause for breath. The reciter may pause very briefly here without breaking meaning.',
+      example:'A gentle pause is allowed here for breath — meaning remains intact.' },
+  };
+
+  let _on       = true;
+  let _dashOpen = false;
+  let _dashTab  = 'qalqalah'; // active dashboard tab
+
+  // ── Tokenise Arabic into letter+marks units ──
+  function tokenise(text) {
+    const IS_LETTER = /[\u0621-\u063A\u0641-\u064A\u0671-\u06D3\u06D5\u066E\u066F]/;
+    const IS_MARK   = /[\u064B-\u065F\u0610-\u061A\u0670\u06D6-\u06ED]/;
+    const units = [];
+    let i = 0;
+    while (i < text.length) {
+      const ch = text[i];
+      if (/\s/.test(ch)) {
+        units.push({ char:ch, marks:'', isSpace:true }); i++;
+      } else if (WAQF_CHARS.has(ch)) {
+        units.push({ char:ch, marks:'', isWaqf:true, waqfType: WAQF_MAP[ch] }); i++;
+      } else if (IS_LETTER.test(ch)) {
+        const u = { char:ch, marks:'' };
+        i++;
+        while (i < text.length && IS_MARK.test(text[i])) {
+          // If a waqf char sneaks into marks, extract it
+          if (WAQF_CHARS.has(text[i])) break;
+          u.marks += text[i++];
+        }
+        units.push(u);
+      } else {
+        if (units.length) units[units.length-1].marks += ch;
+        else units.push({ char:ch, marks:'', isPunct:true });
+        i++;
+      }
+    }
+    return units;
+  }
+
+  function nextIdx(units, i) {
+    for (let j=i+1; j<units.length; j++)
+      if (!units[j].isSpace && !units[j].isWaqf) return j;
+    return -1;
+  }
+
+  // ── Annotate: returns [{raw, cls, isWaqf, waqfType}] ──
+  function annotate(text) {
+    const units = tokenise(text);
+    const out   = units.map(u => ({ raw: u.char + (u.marks||''), cls:null, isWaqf: u.isWaqf||false, waqfType: u.waqfType||null }));
+
+    for (let i=0; i<units.length; i++) {
+      const u = units[i];
+      if (u.isSpace || u.isPunct || u.isWaqf) continue;
+
+      const hasSukoon  = u.marks.includes(SUKOON);
+      const hasShaddah = u.marks.includes(SHADDAH);
+      const hasTanwin  = u.marks.includes(TANWIN_F)||u.marks.includes(TANWIN_D)||u.marks.includes(TANWIN_K);
+      const hasFatha   = u.marks.includes(FATHA);
+      const hasDamma   = u.marks.includes(DAMMA);
+      const hasKasra   = u.marks.includes(KASRA);
+      const ni         = nextIdx(units, i);
+      const next       = ni >= 0 ? units[ni] : null;
+
+      // ① Qalqalah
+      if (QALQALAH.has(u.char) && hasSukoon) { out[i].cls='qalqalah'; continue; }
+
+      // ② Ghunnah
+      if ((u.char===NOON||u.char===MEEM) && hasShaddah) { out[i].cls='ghunnah'; continue; }
+
+      // ③ Madd — superscript alef or maddah sign
+      if (u.marks.includes(SMALL_ALEF)||u.marks.includes(MADDAH)) { out[i].cls='madd'; continue; }
+      // Natural madd: vowel + bare harf madd
+      if (next && !next.isSpace) {
+        if ((hasFatha && next.char===ALEF && !next.marks) ||
+            (hasDamma && next.char===WAW  && (!next.marks||next.marks===SUKOON)) ||
+            (hasKasra && next.char===YA   && (!next.marks||next.marks===SUKOON)))
+          out[ni].cls = 'madd';
+      }
+
+      // ④ Noon sakinah / tanwin rules
+      if ((u.char===NOON && hasSukoon) || hasTanwin) {
+        if (next && !next.isSpace) {
+          if      (next.char==='ب')           { out[i].cls='iqlab';   continue; }
+          else if (IDGHAM_L.has(next.char))   { out[i].cls='idgham';  continue; }
+          else if (IKHFA_L.has(next.char))    { out[i].cls='ikhfa';   continue; }
+        }
+      }
+
+      // ⑤ Meem sakinah + ب → Ikhfa Shafawi
+      if (u.char===MEEM && hasSukoon && next?.char==='ب') out[i].cls='ikhfa';
+    }
+    return out;
+  }
+
+  // ── Render: text → HTML ──
+  function render(text) {
+    if (!_on) return text;
+    return annotate(text).map(({ raw, cls, isWaqf, waqfType }) => {
+      if (isWaqf) {
+        const wr = WAQF_RULES[waqfType];
+        if (!wr) return raw;
+        return `<span class="tj-waqf tj-waqf-${waqfType}" data-waqf="${waqfType}" title="${wr.en}">${wr.sym || raw}</span>`;
+      }
+      return cls ? `<span class="tj-${cls}" data-tj="${cls}">${raw}</span>` : raw;
+    }).join('');
+  }
+
+  // ── Re-render all visible ayahs ──
+  function rerender() {
+    if (!QRP.current) return;
+    const cleaned = QRP.current._cleanedTexts || [];
+    document.querySelectorAll('.qr-verse').forEach(el => {
+      const idx = parseInt(el.dataset.ayah);
+      if (isNaN(idx) || !cleaned[idx]) return;
+      const words = cleaned[idx].trim().split(/\s+/);
+      const arabicEl = el.querySelector('.qr-verse-arabic');
+      if (!arabicEl) return;
+      arabicEl.innerHTML = words.map((w, wi) =>
+        `<span class="qr-word" data-wi="${wi}">${_on ? render(w) : w}</span>`
+      ).join(' ');
+    });
+  }
+
+  // ── Legend strip ──
+  function buildLegend() {
+    const el = document.getElementById('tj-legend');
+    if (!el) return;
+    let html = '<div class="tj-legend-title">Tajweed Guide — click a rule to learn more</div>';
+    Object.entries(RULES).forEach(([key, r]) => {
+      html += `<div class="tj-legend-item" onclick="TJ.openDash('${key}')" style="cursor:pointer" title="Open ${r.en} details">
+        <div class="tj-legend-dot" style="background:${r.color}"></div>
+        <span class="tj-legend-en" style="color:${r.color}">${r.en}</span>
+        <span class="tj-legend-ar">${r.ar}</span>
+      </div>`;
+    });
+    // Waqf mini-legend
+    html += '<div class="tj-legend-title" style="margin-top:.3rem">Waqf Signs — click to open guide</div>';
+    Object.entries(WAQF_RULES).forEach(([key, r]) => {
+      html += `<div class="tj-legend-item" onclick="TJ.openDash('waqf')" style="cursor:pointer" title="${r.en}">
+        <div class="tj-legend-dot" style="background:${r.color}"></div>
+        <span class="tj-legend-en" style="color:${r.color}">${r.sym}</span>
+        <span class="tj-legend-ar" style="font-size:.68rem;opacity:.8">${r.en}</span>
+      </div>`;
+    });
+    el.innerHTML = html;
+  }
+
+  // ── Toggle colouring ──
+  function toggle() {
+    _on = !_on;
+    document.getElementById('tj-toggle-btn')?.classList.toggle('on', _on);
+    const legend = document.getElementById('tj-legend');
+    if (legend) legend.classList.toggle('show', _on);
+    rerender();
+  }
+
+  // ── Dashboard ──
+  function buildDashContent(tab) {
+    const tabs    = document.getElementById('tj-dash-tabs');
+    const body    = document.getElementById('tj-dash-body');
+    if (!tabs || !body) return;
+
+    // Build tab bar
+    const allTabs = [...Object.keys(RULES), 'waqf'];
+    const tabLabels = { ...Object.fromEntries(Object.entries(RULES).map(([k,r])=>[k,r])), waqf:{ en:'Waqf Signs', ar:'وقف', color:'#607D8B' } };
+    tabs.innerHTML = allTabs.map(k => {
+      const r = tabLabels[k];
+      return `<div class="tj-dash-tab${k===tab?' active':''}" onclick="TJ.openDash('${k}')">
+        <div class="tab-dot" style="background:${r.color}"></div>${r.en}
+      </div>`;
+    }).join('');
+
+    // Build panels
+    body.innerHTML = '';
+
+    allTabs.forEach(k => {
+      const panel = document.createElement('div');
+      panel.className = 'tj-dash-panel' + (k===tab?' active':'');
+      panel.id = `tj-panel-${k}`;
+
+      if (k === 'waqf') {
+        panel.innerHTML = `
+          <div class="tj-rule-hd">
+            <div class="tj-rule-badge" style="background:rgba(96,125,139,.12);color:#607D8B;border:2px solid rgba(96,125,139,.3)">وقف</div>
+            <div class="tj-rule-meta">
+              <h2>Waqf — Stopping Signs</h2>
+              <div class="tj-rule-ar" style="color:#607D8B">علامات الوقف</div>
+              <p>Waqf marks tell the reciter where to stop, pause, or continue. They preserve the meaning and beauty of Quranic recitation. Ignoring them can change the meaning of a verse.</p>
+            </div>
+          </div>
+          <table class="tj-waqf-table">
+            <thead><tr>
+              <th>Sign</th><th>Unicode</th><th>Name</th><th>Rule</th>
+            </tr></thead>
+            <tbody>
+              ${Object.entries(WAQF_RULES).map(([k,r]) => `
+                <tr>
+                  <td><span class="tj-waqf tj-waqf-${k}" style="font-size:1rem;cursor:default">${r.sym}</span></td>
+                  <td style="font-size:.6rem;color:var(--t3);font-family:monospace">${r.sym2 || '—'}</td>
+                  <td><span class="tj-waqf-name" style="color:${r.color}">${r.en}</span><br><span style="font-family:'Scheherazade New',serif;font-size:.95rem">${r.ar}</span></td>
+                  <td>${r.desc}</td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+          <div class="tj-conditions" style="margin-top:1rem">
+            <div class="tj-cond-row">
+              <div class="tj-cond-label" style="color:#c62828">⚠ Must Stop</div>
+              <div class="tj-cond-text">م or ۛ — the meaning of the verse is changed if you continue. Stopping is obligatory.</div>
+            </div>
+            <div class="tj-cond-row">
+              <div class="tj-cond-label" style="color:#666">✗ Must Continue</div>
+              <div class="tj-cond-text">لا — stopping here creates incorrect meaning. The sentence is grammatically or semantically incomplete.</div>
+            </div>
+            <div class="tj-cond-row">
+              <div class="tj-cond-label" style="color:#2E7D32">✓ Free Choice</div>
+              <div class="tj-cond-text">ج / ط — the sentence is complete. Stopping or continuing are both correct and permissible.</div>
+            </div>
+            <div class="tj-cond-row">
+              <div class="tj-cond-label" style="color:#00695C">↺ Breath</div>
+              <div class="tj-cond-text">ۜ / ۟ — a brief natural pause is permitted here. The reciter may breathe without the listener noticing any disruption.</div>
+            </div>
+          </div>`;
+      } else {
+        const r = RULES[k];
+        const chipColor = r.color;
+        panel.innerHTML = `
+          <div class="tj-rule-hd">
+            <div class="tj-rule-badge" style="background:${chipColor}22;color:${chipColor};border:2px solid ${chipColor}44">
+              ${r.ar}
+            </div>
+            <div class="tj-rule-meta">
+              <h2 style="color:${chipColor}">${r.en}</h2>
+              <div class="tj-rule-ar" style="color:${chipColor}">${r.ar}</div>
+              <p>${r.desc}</p>
+            </div>
+          </div>
+          <div style="margin:.1rem 0 .6rem">
+            <div class="tj-legend-title" style="margin-bottom:.4rem">Letters Affected</div>
+            <div class="tj-letter-grid">
+              ${r.letters.map(l => `<span class="tj-letter-chip" style="color:${chipColor};border-color:${chipColor}44;background:${chipColor}11">${l}</span>`).join('')}
+            </div>
+            <div style="font-size:.68rem;color:var(--t2);line-height:1.7;margin-top:.3rem">${r.letterDesc}</div>
+          </div>
+          <div class="tj-conditions">
+            ${r.conditions.map(c => `<div class="tj-cond-row">
+              <div class="tj-cond-label" style="color:${chipColor}">${c.label}</div>
+              <div class="tj-cond-text">${c.text}</div>
+            </div>`).join('')}
+          </div>`;
+      }
+      body.appendChild(panel);
+    });
+  }
+
+  function openDash(tab) {
+    _dashTab = tab || 'qalqalah';
+    buildDashContent(_dashTab);
+    document.getElementById('tj-dashboard')?.classList.add('open');
+    _dashOpen = true;
+  }
+
+  function closeDash() {
+    document.getElementById('tj-dashboard')?.classList.remove('open');
+    _dashOpen = false;
+  }
+
+  // ── Tooltip (mouseover delegation) ──
+  function initTooltip() {
+    const tip     = document.getElementById('tj-tooltip');
+    const tipAr   = document.getElementById('tj-tip-ar');
+    const tipRule = document.getElementById('tj-tip-rule');
+    const tipDesc = document.getElementById('tj-tip-desc');
+    if (!tip) return;
+
+    function show(e) {
+      const span = e.target.closest('[data-tj],[data-waqf]');
+      if (!span) { tip.classList.remove('show'); return; }
+      let r;
+      if (span.dataset.waqf) r = WAQF_RULES[span.dataset.waqf];
+      else r = RULES[span.dataset.tj];
+      if (!r) return;
+      tipAr.textContent   = r.ar;
+      tipRule.textContent = r.en;
+      tipDesc.textContent = r.desc;
+      tipRule.style.color = r.color;
+      tipAr.style.color   = r.color;
+      tip.classList.add('show');
+      move(e);
+    }
+    function move(e) {
+      const x = Math.min(e.clientX + 16, window.innerWidth  - 260);
+      const y = Math.max(e.clientY - 12, 8);
+      tip.style.left = x+'px'; tip.style.top = y+'px';
+    }
+    function hide(e) {
+      if (!e.relatedTarget?.closest('[data-tj],[data-waqf]')) tip.classList.remove('show');
+    }
+    const reader = document.getElementById('quran-reader');
+    if (reader) {
+      reader.addEventListener('mouseover', show);
+      reader.addEventListener('mousemove', move);
+      reader.addEventListener('mouseout',  hide);
+    }
+    // Escape key closes dashboard
+    document.addEventListener('keydown', e => { if(e.key==='Escape' && _dashOpen) closeDash(); });
+  }
+
+  // ── Init ──
+  let _inited = false;
+  function init() {
+    if (_inited) return;
+    _inited = true;
+    buildLegend();
+    initTooltip();
+    document.getElementById('tj-legend')?.classList.add('show');
+  }
+
+  return { render, rerender, toggle, init, openDash, closeDash, isEnabled:()=>_on, getRules:()=>RULES };
+})();
+
 // ── Waveform visualization ──
 // Generates randomised bar heights once per surah; animates the "current" bar
 // during playback to create a live waveform effect matching the image design.
-const WV_BARS = 40; // number of bars
+// ── Canvas Waveform ──
+// Uses a <canvas> element — guaranteed to render regardless of flex layout quirks.
+// Bars are drawn directly in 2D context with proper pixel scaling for retina.
+const WV_BARS = 48;
 let _wvHeights = null;
+let _wvRaf     = null; // animation frame ID for debouncing
 
 function buildWaveform(){
-  const wv = document.getElementById('qr-waveform');
-  if(!wv) return;
-  // Generate random heights once (reset when new surah loads)
-  _wvHeights = Array.from({length: WV_BARS}, () => 20 + Math.random() * 80);
-  wv.innerHTML = _wvHeights.map((h, i) =>
-    `<div class="qr-wv-bar" id="wvb-${i}" style="height:${h}%"></div>`
-  ).join('');
+  const cv = document.getElementById('qr-waveform');
+  if(!cv) return;
+  // Natural envelope: taller in the middle, tapers at edges + random noise
+  _wvHeights = Array.from({length: WV_BARS}, (_, i) => {
+    const pos = i / (WV_BARS - 1);
+    const env = Math.sin(pos * Math.PI) * 0.65 + 0.35;
+    return env * (0.45 + Math.random() * 0.55);
+  });
+  drawWaveform(cv, 0, false);
+}
+
+function getWvColors(isDark){
+  return {
+    unplayed: isDark ? 'rgba(180,150,80,0.22)' : 'rgba(150,110,50,0.2)',
+    played  : isDark ? 'rgba(46,175,128,0.75)' : 'rgba(22,140,100,0.68)',
+    current : isDark ? '#d4a83a'               : '#b87e28',
+    bg      : isDark ? '#161d2c'               : '#e2d8c8',
+  };
+}
+
+function drawWaveform(cv, progress, playing){
+  if(!_wvHeights || !cv) return;
+  const isDark  = document.documentElement.getAttribute('data-theme') === 'dark';
+  const clr     = getWvColors(isDark);
+  const dpr     = Math.min(window.devicePixelRatio || 1, 2);
+  const W = cv.clientWidth  || cv.offsetWidth  || 200;
+  const H = cv.clientHeight || cv.offsetHeight || 36;
+
+  // Only resize canvas buffer when needed
+  if(cv.width !== W * dpr || cv.height !== H * dpr){
+    cv.width  = W * dpr;
+    cv.height = H * dpr;
+  }
+
+  const ctx  = cv.getContext('2d');
+  ctx.scale(dpr, dpr);
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = clr.bg;
+  roundRect(ctx, 0, 0, W, H, 6);
+  ctx.fill();
+
+  const pad  = 5;        // top/bottom padding
+  const usH  = H - pad*2;
+  const barW = Math.max(1, (W - pad*2) / WV_BARS - 1.5);
+  const gap  = (W - pad*2 - barW * WV_BARS) / Math.max(1, WV_BARS - 1);
+  const curBar = Math.floor(progress * WV_BARS);
+  const t    = Date.now() / 1000;
+
+  for(let i = 0; i < WV_BARS; i++){
+    const x = pad + i * (barW + gap);
+    let h   = _wvHeights[i] * usH;
+
+    // Bounce animation on current bar
+    if(playing && i === curBar){
+      h *= 0.7 + 0.55 * Math.abs(Math.sin(t * 6 + i * 0.4));
+    }
+
+    const y  = pad + usH - h;
+
+    if(i < curBar)         ctx.fillStyle = clr.played;
+    else if(i === curBar)  ctx.fillStyle = clr.current;
+    else                   ctx.fillStyle = clr.unplayed;
+
+    roundRect(ctx, x, y, barW, h, Math.min(2, barW/2));
+    ctx.fill();
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h);
+  ctx.lineTo(x, y + h);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
+function seekFromWaveform(e){
+  const cv    = document.getElementById('qr-waveform');
+  const audio = document.getElementById('qr-audio');
+  if(!cv || !audio || !audio.duration) return;
+  const rect  = cv.getBoundingClientRect();
+  const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  audio.currentTime = ratio * audio.duration;
+  updateWaveform();
 }
 
 function updateWaveform(){
   if(!_wvHeights) return;
+  const cv    = document.getElementById('qr-waveform');
   const audio = document.getElementById('qr-audio');
-  const wv    = document.getElementById('qr-waveform');
-  if(!wv || !audio || !audio.duration) return;
+  if(!cv) return;
 
-  const pct     = audio.currentTime / audio.duration;
-  const curBar  = Math.floor(pct * WV_BARS);
+  const progress = (audio && audio.duration) ? audio.currentTime / audio.duration : 0;
+  const playing  = QRP.playing;
 
-  wv.classList.toggle('playing', QRP.playing);
-  _wvHeights.forEach((h, i) => {
-    const bar = document.getElementById(`wvb-${i}`);
-    if(!bar) return;
-    bar.classList.remove('played','current');
-    if(i < curBar)       bar.classList.add('played');
-    else if(i === curBar) bar.classList.add('current');
-  });
+  if(_wvRaf) cancelAnimationFrame(_wvRaf);
+  if(playing){
+    // Animate at ~30fps while playing for the bounce effect
+    const loop = () => {
+      drawWaveform(cv, progress, true);
+      _wvRaf = requestAnimationFrame(loop);
+    };
+    _wvRaf = requestAnimationFrame(loop);
+  } else {
+    // Static draw when paused
+    drawWaveform(cv, progress, false);
+  }
+}
+
+// Stop waveform animation loop
+function stopWaveformAnim(){
+  if(_wvRaf){ cancelAnimationFrame(_wvRaf); _wvRaf = null; }
 }
 
 // ── Word-by-word audio sync ──
@@ -3345,14 +4096,19 @@ function renderSurahContent({ arabic, english, bengali, num }){
     ${!isFatihaOrTawbah ? '<div class="qr-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>' : ''}
   `;
 
+  // Store cleaned texts on QRP.current so toggle can re-render without re-fetch
+  if (!QRP.current._cleanedTexts) QRP.current._cleanedTexts = [];
+
   arabic.ayahs.forEach((ayah, i) => {
     const en  = english?.ayahs[i]?.text || '';
     const bn  = bengali?.ayahs[i]?.text || '';
     const txt = cleanAyahText(ayah.text, i);
-    // Wrap each Arabic word in a span for per-word highlight sync
+    // Cache for Tajweed toggle re-render
+    QRP.current._cleanedTexts[i] = txt;
+    // Wrap each Arabic word in a span; apply Tajweed colouring inside each word span
     const words = txt.trim().split(/\s+/);
     const wordHtml = words.map((w, wi) =>
-      `<span class="qr-word" data-wi="${wi}">${w}</span>`
+      `<span class="qr-word" data-wi="${wi}">${TJ.isEnabled() ? TJ.render(w) : w}</span>`
     ).join(' ');
     html += `
       <div class="qr-verse" id="verse-${ayah.numberInSurah}" data-ayah="${i}" data-wc="${words.length}" onclick="ayahJumpTo(${i})">
@@ -3370,6 +4126,9 @@ function renderSurahContent({ arabic, english, bengali, num }){
   // Show player bar, enable PDF
   audioBar.style.display = 'flex';
   document.getElementById('qr-pdf-btn').disabled = false;
+
+  // Initialise Tajweed (idempotent — only builds legend once)
+  TJ.init();
 
   // Build waveform bars for this surah
   buildWaveform();
@@ -3409,7 +4168,7 @@ function setupAudioEvents(){
     if(dur) dur.textContent = audioFmt(audio.duration);
   });
   audio.addEventListener('play',  () => { QRP.playing = true;  updatePlayerUI(); updateWaveform(); });
-  audio.addEventListener('pause', () => { QRP.playing = false; updatePlayerUI(); updateWaveform(); clearWordHighlight(); });
+  audio.addEventListener('pause', () => { QRP.playing = false; updatePlayerUI(); stopWaveformAnim(); updateWaveform(); clearWordHighlight(); });
   audio.addEventListener('ended', () => {
     // NOTE: browsers fire 'pause' before 'ended', so QRP.playing is already false here.
     // We must NOT gate on QRP.playing — just check current surah is still valid.
