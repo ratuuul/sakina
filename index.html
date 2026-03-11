@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sakina — سكينة · Spiritual Companion</title>
-    <link rel="stylesheet" href="assets/landing.css" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +17,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="landing.css" />
+    <link rel="stylesheet" href="assets/landing.css" />
   </head>
   <body>
     <!-- Scroll progress bar -->
@@ -78,8 +77,33 @@
           <span class="ti-s">☀️</span>
         </button>
         <a href="app.html" class="nav-cta">Try Sakina</a>
+        <button
+          class="hamburger"
+          id="hamburgerBtn"
+          aria-label="Open menu"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </nav>
+
+    <!-- ═══════════════════════════════
+     MOBILE DRAWER
+════════════════════════════════ -->
+    <div class="mob-drawer" id="mobDrawer" aria-hidden="true">
+      <ul class="mob-nav-links">
+        <li><a href="#features" class="mob-link">Features</a></li>
+        <li><a href="#mood" class="mob-link">Guidance</a></li>
+        <li><a href="#prayer" class="mob-link">Prayer</a></li>
+        <li><a href="#personalize" class="mob-link">Personalize</a></li>
+      </ul>
+      <div class="mob-drawer-cta">
+        <a href="app.html" class="cta-p"
+          >Try Sakina <span class="arr">→</span></a
+        >
+      </div>
+    </div>
 
     <main>
       <!-- ═══════════════════════════════
@@ -830,7 +854,10 @@
         <div class="fcent">
           <p class="fcred">
             Made with <span class="fhrt">❤️</span> for the
-            <strong>Ummah</strong> by <strong>Ratul</strong>
+            <strong>Ummah</strong> by
+            <a href="https://ratul.pro.bd" style="text-decoration: none"
+              ><strong>Ratul</strong></a
+            >
           </p>
         </div>
         <div class="frgt">
@@ -882,12 +909,12 @@
       <div class="fdiv"></div>
       <div class="fbot">
         <p class="fcopy">
-          © 2025 Sakina · Spiritual Companion · All rights reserved
+          © 2026 Sakina · Spiritual Companion · All rights reserved
         </p>
         <div class="flinks">
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
-          <a href="app.html">Launch App</a>
+          <a href="#">Launch App</a>
         </div>
       </div>
     </footer>

@@ -23,6 +23,44 @@
   });
 
   /* ────────────────────────────────────
+     HAMBURGER / MOBILE DRAWER
+  ──────────────────────────────────── */
+  var hamburger = document.getElementById('hamburgerBtn');
+  var drawer    = document.getElementById('mobDrawer');
+  var isOpen    = false;
+
+  function openDrawer() {
+    isOpen = true;
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    isOpen = false;
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function () {
+    isOpen ? closeDrawer() : openDrawer();
+  });
+
+  /* Close on any drawer link click */
+  document.querySelectorAll('.mob-link').forEach(function (link) {
+    link.addEventListener('click', closeDrawer);
+  });
+
+  /* Close on Escape key */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen) closeDrawer();
+  });
+
+  /* ────────────────────────────────────
      SCROLL PROGRESS BAR
   ──────────────────────────────────── */
   window.addEventListener('scroll', function () {
