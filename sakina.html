@@ -2239,7 +2239,12 @@ function getCurrentPrayer(now, windows){
 
 /* ── Get next prayer ── */
 function getNextPrayer(now, windows){
-  return windows.find(p => p.start > now) || windows[0] || null;
+  const found = windows.find(p => p.start > now);
+  if(found) return found;
+  // Wrap to next day: Fajr's start is today (past), so shift it +24h
+  const first = windows[0];
+  if(!first) return null;
+  return { ...first, start: new Date(first.start.getTime() + 86400000) };
 }
 
 /* ── Check if we're in Tahajjud (last third of night: Maghrib→Fajr) ── */
